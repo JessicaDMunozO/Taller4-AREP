@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Movies Info</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <h1>Movies Info</h1>
+        <form action="/movie">
+            <label for="title">Title:</label><br>
+            <input type="text" id="title" name="title"><br><br>
+            <input type="button" value="Submit" onclick="loadGetMsg()" class="submit_button">
+            <img src="movie.png" alt="Movie image" class="image"/>
+        </form> 
+        <div class="movie_info" id="getrespmsg"></div>
+
+        <script src="moviesScript.js" ></script>
+    </body>
+</html>

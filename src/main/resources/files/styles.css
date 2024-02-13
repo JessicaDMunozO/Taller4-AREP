@@ -1,0 +1,13 @@
+body {
+    background-color: rgb(247, 250, 220);
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+h1 {
+    color:rgb(253, 96, 24);
+    font-size: 300%;
+}

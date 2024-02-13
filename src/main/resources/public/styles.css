@@ -1,0 +1,46 @@
+body {
+    background-color: rgb(221, 197, 245);
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+h1 {
+    color:rgb(62, 2, 119);
+    font-size: 300%;
+}
+
+label {
+    font-size: 150%;
+    color:rgb(62, 2, 119);
+}
+
+.submit_button {
+    background-color: rgb(132, 35, 145);
+    color:rgb(3, 0, 5);
+    border: none;
+    padding: 10px 30px;
+    margin-top: 10px;
+}
+
+.submit_button:hover {
+    background-color: rgb(158, 91, 167);
+}
+
+.image {
+    width: 22%;
+    height: auto;
+    display: block;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.movie_info {
+    margin-left: 10px;
+    margin-top: 20px;
+    margin-bottom: auto;
+    margin-right: 10px;
+}
