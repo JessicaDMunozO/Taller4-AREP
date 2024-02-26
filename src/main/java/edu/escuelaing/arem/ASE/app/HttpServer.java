@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
+
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -49,35 +50,12 @@ public class HttpServer {
         return _instance;
     }
 
-    public void runServer(String[] args) throws IOException, URISyntaxException, ClassNotFoundException,
+    public void runServer(String args) throws IOException, URISyntaxException, ClassNotFoundException,
             IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-        // Register a method
-        String responseType = args[0];
-        Class<?> c = Class.forName(args[1]);
 
-        if (c.isAnnotationPresent(Component.class)) {
-            for (Method m : c.getDeclaredMethods()) {
-                if (m.isAnnotationPresent(GetMapping.class)) {
-                    System.out.println("Loading class: " + m.getName());
-                    components.put(m.getAnnotation(GetMapping.class).value(), m);
-                }
-            }
-        }
+        String responseType = args;
 
-        String pathGetCall = "/component/helloname";
-        String queryValue = "Jessica";
-
-        if (pathGetCall.startsWith("/component")) {
-            String path = pathGetCall.replace("/component", "");
-            if (components.containsKey(path)) {
-                Method method = components.get(path);
-                if (method.getParameterCount() == 1) {
-                    System.out.println("Out: " + method.invoke(null, (Object)queryValue));
-                } else {
-                    System.out.println("Out: " + method.invoke(null));
-                }
-            }
-        }
+        loadComponents();
 
         ServerSocket serverSocket = null;
         try {
@@ -155,6 +133,22 @@ public class HttpServer {
                         // Static files from other directory
                         setFilesDirectory("target/classes");
                         outputLine = httpClientHtml(path, clientSocket);
+                    } else if (path.startsWith("/component")) {
+                        String uri = path.replace("/component", "");
+                        if (components.containsKey(uri)) {
+                            Method method = components.get(uri);
+                            if (method.getParameterCount() == 1) {
+                                outputLine = "HTTP/1.1 200 OK\r\n"
+                                        + "Content-Type:text/html\r\n"
+                                        + "\r\n"
+                                        + method.invoke(null, (Object) param);
+                            } else {
+                                outputLine = "HTTP/1.1 200 OK\r\n"
+                                        + "Content-Type:text/html\r\n"
+                                        + "\r\n"
+                                        + method.invoke(null);
+                            }
+                        }
                     } else {
                         // Static files from the initial directory
                         setFilesDirectory("target/classes/public");
@@ -308,5 +302,26 @@ public class HttpServer {
      */
     public static void post(String r, WebService s) {
         services.put(r, s);
+    }
+
+    public static void loadComponents() throws ClassNotFoundException {
+        File folder = new File("target/classes/edu/escuelaing/arem/ASE/app");
+        File[] files_list = folder.listFiles();
+
+        for (File file : files_list) {
+            if (file.isFile()) {
+                Class<?> c = Class.forName(
+                        file.getPath().replace("target\\classes\\", "").replace("\\", ".").replace(".class", ""));
+
+                if (c.isAnnotationPresent(Component.class)) {
+                    for (Method m : c.getDeclaredMethods()) {
+                        if (m.isAnnotationPresent(GetMapping.class)) {
+                            System.out.println("Loading class: " + m.getName());
+                            components.put(m.getAnnotation(GetMapping.class).value(), m);
+                        }
+                    }
+                }
+            }
+        }
     }
 }
