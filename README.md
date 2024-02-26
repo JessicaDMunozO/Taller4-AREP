@@ -44,7 +44,8 @@ O también se puede ingresar http://localhost:35000/component/square?val=4
 ![image](https://github.com/JessicaDMunozO/Taller4-AREP/assets/123814482/cc59ee2a-6b75-4760-967d-4d7b1debd3dc)
 
 Así mismo, se mantienen las funcionalidades desarrolladas en los talleres anteriores.
-Para ver el servicio web asociado a la ruta `/arep` con una consulta http://localhost:35000/action/arep?con=param
+
+Por ejemplo, para ver el servicio web asociado a la ruta `/arep` con una consulta http://localhost:35000/action/arep?con=param
 
 ![image](https://github.com/JessicaDMunozO/Taller4-AREP/assets/123814482/f7b72049-7191-4bf0-afc1-2e1a52f4d5bc)
 
