@@ -28,7 +28,7 @@ la clase *HelloController*, en donde, cada método es asociado a una ruta en par
 
 Para esto el servidor almacenará los componentes en un HashMap que asocia rutas con métodos particulares. Sin embargo, para cargar estos componentes, se buscan aquellas clases
 que tengan la anotación de `@Component` en el *classpath* y se almacenan los métodos que tengan la anotación de `@GetMapping` para su posterior invocación. Y sobre el path se
-añadió una verificación de si es un componente; en cuyo caso si tiene la ruta registrada en el HashMap, obtiene el método y dependiendo si tiene parámetros o no lo invoca. 
+añadió una verificación de si es un componente; en cuyo caso si tiene la ruta registrada en el HashMap, obtiene el método y lo invoca teniendo en cuenta si tiene parámetros o no. 
 
 ## Evaluación
 Si ingresa la siguiente dirección http://localhost:35000/component/ se observa
