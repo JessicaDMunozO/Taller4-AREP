@@ -39,6 +39,9 @@ public class HttpServer {
      */
     private static String type = "text/html";
 
+    /**
+     * HashMap that stores components of the server with the route and the method
+     */
     private static HashMap<String, Method> components = new HashMap<>();
 
     /**
@@ -134,6 +137,7 @@ public class HttpServer {
                         setFilesDirectory("target/classes");
                         outputLine = httpClientHtml(path, clientSocket);
                     } else if (path.startsWith("/component")) {
+                        // Component Annotation
                         String uri = path.replace("/component", "");
                         if (components.containsKey(uri)) {
                             Method method = components.get(uri);
@@ -304,6 +308,12 @@ public class HttpServer {
         services.put(r, s);
     }
 
+    /**
+     * Search on the classpath for component classes and stores their methods
+     * annotated with GetMapping on the components HashMap
+     * 
+     * @throws ClassNotFoundException if the class can´t be found
+     */
     public static void loadComponents() throws ClassNotFoundException {
         File folder = new File("target/classes/edu/escuelaing/arem/ASE/app");
         File[] files_list = folder.listFiles();
